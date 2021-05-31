@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPosts} from '../actions/index';
 import {Grid, LinearProgress} from '@material-ui/core';
-import Post from './Post/Post';
+import NewPost from './Post/NewPost';
 const Posts = () => {
     const dispatch = useDispatch();
     const posts = useSelector((state)=>{return state.posts});
@@ -12,11 +12,11 @@ const Posts = () => {
     },[dispatch])
     return (
         !posts.length ? <LinearProgress style={{marginTop: "10px"}} /> : (
-            <Grid style={{marginTop: "10px"}} container alignItems="stretch" spacing={3}>
+            <Grid style={{marginTop: "10px"}} container spacing={6}>
                 {
                     posts.map((post)=>(
                         <Grid key={post._id} item xs={12} sm={6}>
-                        <Post post={post} />
+                        <NewPost post={post}/>
                          </Grid>
                     ))
                 }

@@ -3,7 +3,7 @@ import {getPosts} from './actions/index';
 import {useSelector, useDispatch} from 'react-redux';
 import {LinearProgress, Grid, Typography} from '@material-ui/core';
 import { useParams} from 'react-router-dom';
-import Post from './Posts/Post/Post';
+import NewPost from './Posts/Post/NewPost';
 
 const UserPosts = () => {
     const dispatch = useDispatch();
@@ -17,13 +17,13 @@ const UserPosts = () => {
     console.log(params.id);
     return (
         <React.Fragment>
-        {userPosts.length > 0 ? <Typography variant="h6" align="center">Showing all the posts by @{userPosts[0].username}</Typography> : <Typography variant="h6" align="center">No posts found</Typography>}
+        {userPosts.length > 0 ? <Typography style={{marginTop:"10px"}} variant="h6" align="center">Showing all the posts by {userPosts[0].username}</Typography> : <Typography variant="h6" align="center">No posts found yet</Typography>}
         {!userPosts.length ? <LinearProgress align="center" /> : (
-            <Grid container alignItems="stretch" spacing={3}>
+            <Grid container style={{marginTop:"10px"}} alignItems="stretch" spacing={3}>
                 {
                     userPosts.map((post)=>(
                         <Grid key={post._id} item xs={12} sm={6}>
-                        <Post post={post} />
+                        <NewPost post={post} />
                          </Grid>
                     ))
                 }
