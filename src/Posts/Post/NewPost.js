@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -17,6 +17,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Button} from '@material-ui/core';
 import {deletePost, likePost, unLikePost} from '../../actions/index';
 import {useSelector, useDispatch} from 'react-redux';
+import {useParams} from 'react-router-dom';
+import Model from '../../Model';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,8 +58,16 @@ const useStyles = makeStyles((theme) => ({
 export default function NewPost({post}) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const auth = useSelector(state =>  {return state.auth})
+  const params = useParams();
+  const auth = useSelector(state =>  {return state.auth});
+  const [openModal, setOpenModal] = useState(false);
+  const modalClose= ()=>{
+      return setOpenModal(false);
+};
+
   return (
+    <div>
+    <Model open={openModal} deletePost={()=>dispatch(deletePost(post._id))} closeModal={modalClose} />
     <Card className={`${classes.card}`}>
       <CardHeader
         avatar={
@@ -88,15 +98,16 @@ export default function NewPost({post}) {
         <Button size="small" className={classes.color} onClick={()=>{dispatch(unLikePost(post._id))}}>
         <FavoriteIcon />
         </Button>}
-        <Button size="small" className={classes.color} disabled={post.userId === auth.userId ? false :true } onClick={()=>{dispatch(deletePost(post._id))}}>
+        <Button size="small" className={classes.color} disabled={post.userId === auth.userId ? false :true } onClick={()=>{setOpenModal(true)}}>
         <Delete />
         </Button>
-        <Link to={`/user/${post.userId}`}>
+        {params.id ? null : <Link to={`/user/${post.userId}`}>
         <IconButton className={classes.color} style={{float:"right"}} aria-label="delete">
             <AccountCircleIcon />
         </IconButton>
-        </Link>      
+        </Link>}  
       </CardActions>
     </Card>
+    </div>
   );
 }
