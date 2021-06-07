@@ -10,6 +10,7 @@ const UserPosts = () => {
     const params = useParams();
     const posts = useSelector(state=>{return state.posts});
     const userPosts = posts.filter(post=> post.userId === params.id);
+    
     useEffect(() =>{
         dispatch(getPosts());
     },[dispatch]);

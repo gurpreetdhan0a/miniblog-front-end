@@ -14,7 +14,7 @@ const Form = () =>{
         userId: '',
         username : ''
     });
-    console.log(FileBase)
+
     const handleSubmit = (e)=>{
         e.preventDefault();
         dispatch(createPost(blogData)).finally(alert("Post saved successfully"))
@@ -36,9 +36,13 @@ const Form = () =>{
         <Paper>
             <form onSubmit={handleSubmit}>
             <Typography align="center" style={{margin: "10px"}} variant="h6">Creating a Blog Post</Typography>
+
             <TextField required name="title" variant="outlined" label="Title" fullWidth value={blogData.title} onChange={(e) => setBlogData({...blogData, title: e.target.value, username: auth.username, userId: auth.userId})}/>
+
             <TextField style={{marginTop: "10px", marginBottom: "10px"}} required name="message" variant="outlined" label="Message" fullWidth value={blogData.message} onChange={(e) => setBlogData({...blogData, message: e.target.value})}/>
+
             <TextField style={{marginTop: "10px", marginBottom: "10px"}} name="tags" variant="outlined" label="Tags" fullWidth value={blogData.tags} placeholder="Separate hashtags with ," onChange={(e) => setBlogData({...blogData, tags: e.target.value.split(',')})}/>
+
             <FileBase
             type="file"
             multiple={false}

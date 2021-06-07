@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from '@material-ui/core';
 import GoogleAuth from './GoogleAuth';
+
 const Navigation = () => {
     return (
         <div style={{display:"flex", width:"98%", justifyContent:"space-evenly", backgroundColor:"#424242", padding:"10px", margin:"auto"}}>

@@ -9,6 +9,7 @@ import {Link, useParams} from 'react-router-dom';
 import {deletePost, likePost, unLikePost} from '../../actions/index';
 import {useSelector, useDispatch} from 'react-redux';
 import Model from '../../Model';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +61,7 @@ export default function NewPost({post}) {
     <div>
     <Model open={openModal} deletePost={()=>dispatch(deletePost(post._id))} closeModal={modalClose} />
     <Card className={`${classes.card}`}>
+
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -73,16 +75,19 @@ export default function NewPost({post}) {
         title={<Typography variant="h5" className={classes.color}>{post.title}</Typography>}
         subheader={<Typography variant="body2" className={classes.color}> {post.createdAt.split('T')[0]}</Typography>}
       />
+
       <CardMedia
         className={classes.media}
         src="string" image={post.selectedFile}
       />
+
       <CardContent>
-      {post.tags.length>0 ? <Typography className={classes.color} variant="body2" color="textSecondary">{post.tags.map((tag)=>`#${tag} `)}</Typography> : null}
-        <Typography variant="h6" className={classes.color} component="p">
+      {post.tags.length>0 ? <Typography className={classes.color} variant="body2" color="textSecondary">{post.tags.map((tag)=>` #${tag}`)}</Typography> : null}
+        <Typography style={{marginTop: "10px"}} variant="h6" className={classes.color} component="p">
           {post.message}
         </Typography>
       </CardContent>
+
       <CardActions >
         {post.likeCount === 0 ? <Button disabled={auth.userId ? false : true} className={classes.color} size="small" onClick={()=>{dispatch(likePost(post._id))}}>
         <FavoriteIcon />
@@ -94,10 +99,11 @@ export default function NewPost({post}) {
         <Delete />
         </Button>
         {params.id ? null : <Link to={`/user/${post.userId}`}>
-        <Button style={{background : "#F44336"}} className={classes.color} variant="contained">@{post.username}</Button>
+        <Button style={{background : "#F44336"}} className={classes.color} variant="contained"><AccountBoxIcon/></Button>
         </Link>}  
         {date.split('T')[0] === post.createdAt.split('T')[0] ? <Button className={classes.color} disabled size="small" variant="contained"><Typography className={classes.color} variant="caption">New</Typography></Button>: null}
       </CardActions>
+
     </Card>
     </div>
   );
