@@ -6,10 +6,12 @@ import NewPost from './Post/NewPost';
 const Posts = () => {
     const dispatch = useDispatch();
     const posts = useSelector((state)=>{return state.posts});
-    console.log(posts);
     useEffect(()=>{
         dispatch(getPosts());
-    },[dispatch])
+    },[dispatch]);
+    posts.sort((function(a,b){
+        return new Date(b.createdAt) - new Date(a.createdAt)
+    }));
     return (
         !posts.length ? <LinearProgress style={{marginTop: "10px"}} /> : (
             <Grid style={{marginTop: "10px"}} container spacing={6}>

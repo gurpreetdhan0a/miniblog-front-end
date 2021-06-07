@@ -14,7 +14,6 @@ const UserPosts = () => {
         dispatch(getPosts());
     },[dispatch]);
 
-    console.log(params.id);
     return (
         <React.Fragment>
         {userPosts.length > 0 ? <Typography style={{marginTop:"10px"}} variant="h6" align="center">Showing all the posts by {userPosts[0].username}</Typography> : <Typography variant="h6" align="center">No posts found yet</Typography>}
