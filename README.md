@@ -1,4 +1,5 @@
-![Case 1](https://user-images.githubusercontent.com/23673234/120960904-1ec73a80-c7a0-11eb-9ef8-3c579c7a2e8d.jpeg)
+![Screen Shot 2021-06-07 at 2 55 00 pm](https://user-images.githubusercontent.com/23673234/120961049-65b53000-c7a0-11eb-9450-531a60e958fc.png)
+![Screen Shot 2021-06-07 at 2 54 39 pm](https://user-images.githubusercontent.com/23673234/120961067-6a79e400-c7a0-11eb-8774-e7d09ccf63fe.png)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
