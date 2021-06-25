@@ -1,10 +1,13 @@
-import React, {useState,} from 'react';
+import React, {useState} from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux'
-import FileBase from 'react-file-base64';
 import { createPost } from '../actions/index';
+import Resizer from "react-image-file-resizer";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const Form = () =>{
     const dispatch = useDispatch();
+    const [loader, setLoader] = useState(false);
     const auth = useSelector(state => {return state.auth});
     const [blogData, setBlogData] = useState({
         title: '',
@@ -15,9 +18,28 @@ const Form = () =>{
         username : ''
     });
 
+    const onFileResize = e => {
+        const file = e.target.files[0];
+      
+      Resizer.imageFileResizer(
+      file, // the file from input
+      480, // width
+      480, // height
+      "JPEG", // compress format WEBP, JPEG, PNG
+      90, // quality
+      0, // rotation
+      (uri) => {
+        setBlogData({...blogData, selectedFile:uri})
+        // You upload logic goes here
+      },
+      "base64" // blob or base64 default base64
+      );
+      }
+
     const handleSubmit = (e)=>{
+        setLoader(true);
         e.preventDefault();
-        dispatch(createPost(blogData)).finally(alert("Post saved successfully"))
+        dispatch(createPost(blogData, setLoader));
         clear();
     }
 
@@ -43,11 +65,13 @@ const Form = () =>{
 
             <TextField style={{marginTop: "10px", marginBottom: "10px"}} name="tags" variant="outlined" label="Tags" fullWidth value={blogData.tags} placeholder="Separate hashtags with ," onChange={(e) => setBlogData({...blogData, tags: e.target.value.split(',')})}/>
 
-            <FileBase
-            type="file"
-            multiple={false}
-            onDone={({base64})=>setBlogData({...blogData, selectedFile:base64})}/>
-            <Button style={{marginTop: "10px"}}variant="contained" disabled={!blogData.userId || !blogData.message || !blogData.selectedFile ? true:false} color="primary" size="large" type="submit" fullWidth >Submit</Button>
+            <input
+             type="file"
+             id="file"
+             accept="image/*"
+             onChange={onFileResize}
+           />
+            <Button style={{marginTop: "10px"}}variant="contained" disabled={!blogData.userId || !blogData.message || !blogData.selectedFile ? true:false} color="primary" size="large" type="submit" fullWidth >{loader ? <CircularProgress/> : <span>Submit</span>}</Button>
             </form>
         </Paper>
         )

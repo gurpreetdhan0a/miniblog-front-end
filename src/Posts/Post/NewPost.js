@@ -17,8 +17,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#424242",
   },
   media: {
-    width: "99%",
-    paddingTop: '73.25%', // 16:9
+    width: "100%",
+    minHeight : "100px",
+    paddingTop: '61.25%', // 16:9
   },
   avatar: {
     backgroundColor: red[500],
@@ -92,7 +93,7 @@ export default function NewPost({post}) {
         {post.likeCount === 0 ? <Button disabled={auth.userId ? false : true} className={classes.color} size="small" onClick={()=>{dispatch(likePost(post._id))}}>
         <FavoriteIcon />
         </Button> :
-        <Button size="small" color="secondary" onClick={()=>{dispatch(unLikePost(post._id))}}>
+        <Button disabled={auth.userId ? false : true} size="small" color="secondary" onClick={()=>{dispatch(unLikePost(post._id))}}>
         <FavoriteIcon />
         </Button>}
         <Button size="small" className={classes.color} disabled={post.userId === auth.userId ? false :true } onClick={()=>{setOpenModal(true)}}>

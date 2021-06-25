@@ -11,3 +11,8 @@ form{
     margin:auto;
     padding-bottom: 20px;;
 }
+
+#root{
+    max-width: 1200px ;
+    margin:auto;
+}
