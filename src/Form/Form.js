@@ -26,7 +26,7 @@ const Form = () =>{
       480, // width
       480, // height
       "JPEG", // compress format WEBP, JPEG, PNG
-      90, // quality
+      97, // quality
       0, // rotation
       (uri) => {
         setBlogData({...blogData, selectedFile:uri})

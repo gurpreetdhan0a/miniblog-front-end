@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardHeader, CardMedia, CardContent, CardActions, Avatar, Typography, Button} from '@material-ui/core';
+import {Card, CardHeader, CardContent, CardActions, Avatar, Typography, Button} from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Delete from '@material-ui/icons/Delete';
@@ -15,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     backgroundColor: "#424242",
-  },
-  media: {
-    width: "100%",
-    minHeight : "100px",
-    paddingTop: '61.25%', // 16:9
   },
   avatar: {
     backgroundColor: red[500],
@@ -43,8 +38,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#424242",
     width:"90%",
     margin:"auto",
-    padding:"15px"
+    padding:"15px",
   },
+  image :{
+    width: "100%",
+    objectFit: "cover",
+    maxHeight:"400px"
+  }
 }));
 
 export default function NewPost({post}) {
@@ -77,10 +77,7 @@ export default function NewPost({post}) {
         subheader={<Typography variant="body2" className={classes.color}> {post.createdAt.split('T')[0]}</Typography>}
       />
 
-      <CardMedia
-        className={classes.media}
-        src="string" image={post.selectedFile}
-      />
+      <img className={classes.image} src={post.selectedFile} alt=""/>
 
       <CardContent>
       {post.tags.length>0 ? <Typography className={classes.color} variant="body2" color="textSecondary">{post.tags.map((tag)=>` #${tag}`)}</Typography> : null}
